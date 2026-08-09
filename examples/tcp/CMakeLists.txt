@@ -32,3 +32,12 @@ wirestead_configure_executable(async_tcp_echo_client)
 add_executable(async_tcp_echo_server async/echo_server.cc)
 target_link_libraries(async_tcp_echo_server PRIVATE wirestead::wirestead)
 wirestead_configure_executable(async_tcp_echo_server)
+
+# Framing, backpressure, and RuntimeStats
+add_executable(async_tcp_telemetry_server async/telemetry_server.cc)
+target_link_libraries(async_tcp_telemetry_server PRIVATE wirestead::wirestead)
+wirestead_configure_executable(async_tcp_telemetry_server)
+
+add_executable(async_tcp_telemetry_client async/telemetry_client.cc)
+target_link_libraries(async_tcp_telemetry_client PRIVATE wirestead::wirestead)
+wirestead_configure_executable(async_tcp_telemetry_client)
