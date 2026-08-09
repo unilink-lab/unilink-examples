@@ -113,10 +113,13 @@ int main(int argc, char* argv[]) {
         }
       })
       // (3) Fires when queue congestion changes, with the currently queued byte
-      //     count. Worth knowing: this stays silent under BestEffort, because
-      //     dropping keeps the queue below the threshold that would trigger it.
-      //     Watch RuntimeStats::dropped_bytes instead. Under the Reliable
-      //     default - what the paired client uses - it does fire.
+      //     count. Worth knowing: this is not a reliable loss signal under
+      //     BestEffort. Dropping is what holds the queue below the threshold
+      //     that would fire it, so whether it fires depends on how the queue
+      //     happens to cross that threshold - this server can discard hundreds
+      //     of megabytes with backpressure_events still at 0. Watch
+      //     RuntimeStats::dropped_bytes instead. Under the Reliable default -
+      //     what the paired client uses - it fires and nothing is dropped.
       .on_backpressure(
           [](size_t queued_bytes) { std::cout << "[server] backpressure: " << queued_bytes << " B queued\n"; })
       .on_disconnect([](const wirestead::ConnectionContext& ctx) {

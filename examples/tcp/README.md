@@ -73,10 +73,11 @@ Points worth reading the source for:
   runs the `Reliable` default, and they report congestion through different
   fields. Reliable blocks the sender, so the queue reaches the threshold and
   `on_backpressure()` fires (`backpressure_events` climbs, nothing is dropped).
-  BestEffort drops to stay *under* that threshold, so `on_backpressure()` never
-  fires and `backpressure_events` stays at 0 while `dropped_bytes` climbs. Wire
-  up the callback and you will still be blind to BestEffort loss - watch
-  `dropped_messages` for that.
+  Under BestEffort the callback is not a reliable loss signal: dropping is what
+  holds the queue *under* that threshold, so whether it fires at all depends on
+  how the queue happens to cross it. The snapshot above discards 404 MB with
+  `backpressure_events` still at 0. Wire up only the callback and you can stay
+  blind to BestEffort loss - watch `dropped_bytes` and `dropped_messages`.
 - **Reading RuntimeStats.** `*_accepted` is what the application handed over,
   `*_sent` is what the socket wrote, `*_received` counts read completions. Byte
   totals line up across the first two; message counts do not, because writes are
