@@ -17,7 +17,7 @@ cmake --build build
 
 | Category | Details | Binaries |
 |---|---|---|
-| [TCP](tcp/) | Client/server streams over TCP | `sync_tcp_echo_server`, `sync_tcp_echo_client`, `sync_tcp_broadcast_server`, `async_tcp_echo_server`, `async_tcp_echo_client` |
+| [TCP](tcp/) | Client/server streams over TCP | `sync_tcp_echo_server`, `sync_tcp_echo_client`, `sync_tcp_broadcast_server`, `async_tcp_echo_server`, `async_tcp_echo_client`, `async_tcp_telemetry_server`, `async_tcp_telemetry_client` |
 | [UDP](udp/) | Datagram sender/receiver examples | `sync_udp_receiver`, `sync_udp_sender`, `async_udp_receiver`, `async_udp_sender` |
 | [UDS](uds/) | Unix Domain Socket local IPC | `sync_uds_echo_server`, `sync_uds_echo_client`, `async_uds_echo_server`, `async_uds_echo_client` |
 | [Serial](serial/) | Serial port echo examples | `sync_serial_echo`, `async_serial_echo` |
@@ -58,6 +58,16 @@ Serial echo:
 
 ```bash
 ./build/fetchcontent/bin/sync_serial_echo /dev/ttyUSB0 115200
+```
+
+Framing, backpressure, and RuntimeStats (see [TCP](tcp/) for the walkthrough):
+
+```bash
+# Terminal 1
+./build/fetchcontent/bin/async_tcp_telemetry_server
+
+# Terminal 2
+./build/fetchcontent/bin/async_tcp_telemetry_client 127.0.0.1 9100 20000 5000
 ```
 
 Serial examples require an available serial device or a virtual serial pair.
