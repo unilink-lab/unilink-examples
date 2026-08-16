@@ -33,7 +33,7 @@ layout from the core repository.
 ### Option 1: Build without installing Wirestead
 
 This is the quickest path for trying the examples. CMake fetches Wirestead
-v0.9.4 as configured in `cmake/FetchWirestead.cmake`.
+v0.9.5 as configured in `cmake/FetchWirestead.cmake`.
 
 ```bash
 cmake --preset fetchcontent
@@ -118,7 +118,7 @@ transport-specific run commands.
 
 - CMake 3.28
 - GCC 13
-- Wirestead v0.9.4
+- Wirestead v0.9.5
 - vcpkg package `wirestead` 0.9.3
 - Installed-package mode with a local Wirestead v0.9.x install prefix
 
